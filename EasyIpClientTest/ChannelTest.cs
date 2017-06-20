@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Configuration;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
 using EasyIpClient.Channel.Interfaces;
 using EasyIpClient.Channel;

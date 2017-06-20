@@ -6,7 +6,7 @@ using System.Net.Sockets;
 
 namespace EasyIpClient.Channel
 {
-    public class TcpChannel: IChannel, IDisposable
+    public sealed  class TcpChannel: IChannel, IDisposable
     {
         private TcpClient Client;
         private NetworkStream stream;
@@ -70,7 +70,7 @@ namespace EasyIpClient.Channel
             GC.SuppressFinalize(this);
         }
 
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (!this.disposed)
             {
