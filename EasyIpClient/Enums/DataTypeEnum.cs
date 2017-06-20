@@ -1,6 +1,6 @@
 ﻿namespace EasyIpClient.Enums
 {
-    public enum DataTypeEnum
+    public enum DataTypeEnum: byte
     {
         FlagWord = 1,
         InputWord = 2,

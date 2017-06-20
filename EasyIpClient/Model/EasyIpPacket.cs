@@ -1,4 +1,6 @@
-﻿namespace EasyIpClient.Model
+﻿using EasyIpClient.Enums;
+
+namespace EasyIpClient.Model
 {
     public class EasyIpPacket
     {
@@ -62,7 +64,7 @@
         /// 1 byte
         /// Type of operand, some types may not be available (see senddata type for list of types)
         /// </summary>
-        public byte ReqDataType;
+        public DataTypeEnum ReqDataType;
         /// <summary>
         /// 2 bytes
         /// Number of words
