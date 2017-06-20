@@ -2,3 +2,6 @@ syntax: glob
 .vs/**
 EasyIpClient/obj/**
 EasyIpClient/bin/**
+packages/**
+EasyIpClientTest/bin/**
+EasyIpClientTest/obj/**
