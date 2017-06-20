@@ -5,7 +5,7 @@ using System.Net.Sockets;
 
 namespace EasyIpClient.Channel
 {
-    public class UdpChannel : IChannel, IDisposable
+    public sealed class UdpChannel : IChannel, IDisposable
     {
         private UdpClient Client;
         private IPEndPoint EndPoint;
@@ -55,7 +55,7 @@ namespace EasyIpClient.Channel
             GC.SuppressFinalize(this);
         }
 
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (!this.disposed)
             {
