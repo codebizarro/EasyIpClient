@@ -24,15 +24,11 @@
         /// 4 bytes
         /// Set by client, copied by server
         /// </summary>
-        public short Counter;
+        public int Counter;
         /// <summary>
         /// 1 byte
         /// Reserved
         /// Set to 0
-        /// </summary>
-        public short ShortIndex;
-        /// <summary>
-        /// ???
         /// </summary>
         public byte Spare1;
         /// <summary>

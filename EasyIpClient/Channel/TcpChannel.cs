@@ -6,7 +6,7 @@ using System.Net.Sockets;
 
 namespace EasyIpClient.Channel
 {
-    internal class TcpChannel: IChannel, IDisposable
+    public class TcpChannel: IChannel, IDisposable
     {
         private TcpClient Client;
         private NetworkStream stream;

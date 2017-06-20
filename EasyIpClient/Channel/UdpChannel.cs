@@ -5,7 +5,7 @@ using System.Net.Sockets;
 
 namespace EasyIpClient.Channel
 {
-    internal class UdpChannel : IChannel, IDisposable
+    public class UdpChannel : IChannel, IDisposable
     {
         private UdpClient Client;
         private IPEndPoint EndPoint;
