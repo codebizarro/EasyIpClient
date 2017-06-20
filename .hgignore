@@ -1,0 +1,4 @@
+syntax: glob
+.vs/**
+EasyIpClient/obj/**
+EasyIpClient/bin/**
