@@ -47,6 +47,7 @@
     <Compile Include="Enums\DataTypeEnum.cs" />
     <Compile Include="Enums\ErrorTypeEnum.cs" />
     <Compile Include="Enums\FlagTypeEnum.cs" />
+    <Compile Include="Model\EasyIpPacket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
