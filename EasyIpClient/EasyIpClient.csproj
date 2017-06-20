@@ -43,7 +43,12 @@
     <Compile Include="Channel\TcpChannel.cs" />
     <Compile Include="Channel\UdpChannel.cs" />
     <Compile Include="Channel\Interfaces\IChannel.cs" />
+    <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Enums\DataTypeEnum.cs" />
+    <Compile Include="Enums\ErrorTypeEnum.cs" />
+    <Compile Include="Enums\FlagTypeEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
