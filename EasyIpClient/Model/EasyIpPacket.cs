@@ -1,5 +1,6 @@
 ﻿using EasyIpClient.Enums;
 using System;
+using System.IO;
 
 namespace EasyIpClient.Model
 {
@@ -87,39 +88,36 @@ namespace EasyIpClient.Model
         /// </summary>
         public short[] Data = new short[256];
 
-        private byte[] _buffer = new byte[532];
+        private const byte PACKET_HEADER_SIZE = 20;
+
+        private const byte SHORT_SIZE = sizeof(short);
 
         public byte[] BuildRequest()
         {
-            _buffer = new byte[20 + SendDataSize * 2];
-            _buffer[0] = Flags;
-            _buffer[1] = Error;
-            var counter = BitConverter.GetBytes(Counter);
-            _buffer[2] = counter[0];
-            _buffer[3] = counter[1];
-            _buffer[4] = counter[2];
-            _buffer[5] = counter[3];
-            _buffer[7] = (byte)SendDataType;
-            var sendDataSize = BitConverter.GetBytes(SendDataSize);
-            _buffer[8] = sendDataSize[0];
-            _buffer[9] = sendDataSize[1];
-            var sendDataOffset = BitConverter.GetBytes(SendDataOffset);
-            _buffer[10] = sendDataOffset[0];
-            _buffer[11] = sendDataOffset[1];
-            _buffer[13] = (byte)ReqDataType;
-            var reqDataSize = BitConverter.GetBytes(ReqDataSize);
-            _buffer[14] = reqDataSize[0];
-            _buffer[15] = reqDataSize[1];
-            var reqDataOffsetServer = BitConverter.GetBytes(ReqDataOffsetServer);
-            _buffer[16] = reqDataOffsetServer[0];
-            _buffer[17] = reqDataOffsetServer[1];
-            var reqDataOffsetClient = BitConverter.GetBytes(ReqDataOffsetClient);
-            _buffer[18] = reqDataOffsetClient[0];
-            _buffer[19] = reqDataOffsetClient[1];
+            var _buffer = new byte[PACKET_HEADER_SIZE + SendDataSize * SHORT_SIZE];
+            using (var stream = new MemoryStream())
+            {
+                using (var writer = new BinaryWriter(stream))
+                {
+                    writer.Write(Flags);
+                    writer.Write(Error);
+                    writer.Write(Counter);
+                    writer.Write(Spare1);
+                    writer.Write((byte)SendDataType);
+                    writer.Write(SendDataSize);
+                    writer.Write(SendDataOffset);
+                    writer.Write(Spare2);
+                    writer.Write((byte)ReqDataType);
+                    writer.Write(ReqDataSize);
+                    writer.Write(ReqDataOffsetServer);
+                    writer.Write(ReqDataOffsetClient);
+                }
+                Buffer.BlockCopy(stream.ToArray(), 0, _buffer, 0, PACKET_HEADER_SIZE);
+            }
 
             if (SendDataSize > 0)
             {
-                Buffer.BlockCopy(Data, 0, _buffer, 20, SendDataSize * 2);
+                Buffer.BlockCopy(Data, 0, _buffer, PACKET_HEADER_SIZE, SendDataSize * SHORT_SIZE);
             }
             return _buffer;
         }
