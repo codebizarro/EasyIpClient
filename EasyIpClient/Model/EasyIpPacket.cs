@@ -1,4 +1,5 @@
 ﻿using EasyIpClient.Enums;
+using System;
 
 namespace EasyIpClient.Model
 {
@@ -43,7 +44,7 @@ namespace EasyIpClient.Model
         /// 5 timer
         /// 11 strings3
         /// </summary>
-        public byte SendDataType;
+        public DataTypeEnum SendDataType;
         /// <summary>
         /// 2 bytes
         /// Number of words
@@ -80,5 +81,47 @@ namespace EasyIpClient.Model
         /// Target offset in client
         /// </summary>
         public short ReqDataOffsetClient;
+        /// <summary>
+        /// N*2 bytes
+        /// Data send by client or requested data
+        /// </summary>
+        public short[] Data = new short[256];
+
+        private byte[] _buffer = new byte[532];
+
+        public byte[] BuildRequest()
+        {
+            _buffer = new byte[20 + SendDataSize * 2];
+            _buffer[0] = Flags;
+            _buffer[1] = Error;
+            var counter = BitConverter.GetBytes(Counter);
+            _buffer[2] = counter[0];
+            _buffer[3] = counter[1];
+            _buffer[4] = counter[2];
+            _buffer[5] = counter[3];
+            _buffer[7] = (byte)SendDataType;
+            var sendDataSize = BitConverter.GetBytes(SendDataSize);
+            _buffer[8] = sendDataSize[0];
+            _buffer[9] = sendDataSize[1];
+            var sendDataOffset = BitConverter.GetBytes(SendDataOffset);
+            _buffer[10] = sendDataOffset[0];
+            _buffer[11] = sendDataOffset[1];
+            _buffer[13] = (byte)ReqDataType;
+            var reqDataSize = BitConverter.GetBytes(ReqDataSize);
+            _buffer[14] = reqDataSize[0];
+            _buffer[15] = reqDataSize[1];
+            var reqDataOffsetServer = BitConverter.GetBytes(ReqDataOffsetServer);
+            _buffer[16] = reqDataOffsetServer[0];
+            _buffer[17] = reqDataOffsetServer[1];
+            var reqDataOffsetClient = BitConverter.GetBytes(ReqDataOffsetClient);
+            _buffer[18] = reqDataOffsetClient[0];
+            _buffer[19] = reqDataOffsetClient[1];
+
+            if (SendDataSize > 0)
+            {
+                Buffer.BlockCopy(Data, 0, _buffer, 20, SendDataSize * 2);
+            }
+            return _buffer;
+        }
     }
 }

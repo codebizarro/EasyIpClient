@@ -6,6 +6,8 @@ using EasyIpClient.Constants;
 using EasyIpClient.Model;
 using EasyIpClient.Enums;
 using System;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace EasyIpClientTest
 {
@@ -18,6 +20,19 @@ namespace EasyIpClientTest
             var client = new UdpChannel(new IPEndPoint(IPAddress.Parse(Configuration.Address), Constants.EASYIP_PORT));
             Assert.IsNotNull(client);
             Assert.IsInstanceOfType(client, typeof(IChannel));
+        }
+
+        byte[] ObjectToByteArray(object obj)
+        {
+            if (obj == null)
+                return null;
+            var formatter = new BinaryFormatter();
+            using (var stream = new MemoryStream())
+            {
+                formatter.Serialize(stream, obj);
+                var ret = stream.ToArray();
+                return ret;
+            }
         }
 
         [TestMethod]
@@ -37,9 +52,36 @@ namespace EasyIpClientTest
                 ReqDataOffsetServer = 0,
                 ReqDataOffsetClient = 0
             };
-            
-            //client.Execute()
-            
+
+            var response = client.Execute(packet.BuildRequest());
+            Assert.IsNotNull(response);
+            Assert.IsTrue(response[1] == 0);
+            Assert.AreEqual((byte)packet.ReqDataType, response[13]);
+            Assert.AreEqual(packet.ReqDataSize, response[14]);
+        }
+
+        [TestMethod]
+        public void ExecuteWriteTest()
+        {
+            IChannel client = new UdpChannel(new IPEndPoint(IPAddress.Parse(Configuration.Address), Constants.EASYIP_PORT));
+            var packet = new EasyIpPacket
+            {
+                Flags = 0,
+                Error = 0,
+                Counter = 0, // Must increment in client
+                SendDataSize = 2,
+                SendDataOffset = 0,
+                SendDataType = DataTypeEnum.FlagWord,
+                ReqDataSize = 0,
+                ReqDataOffsetServer = 0,
+                ReqDataOffsetClient = 0
+            };
+            packet.Data[0] = 255;
+            packet.Data[1] = 254;
+            packet.Data[255] = 255;
+            var response = client.Execute(packet.BuildRequest());
+            Assert.IsNotNull(response);
+            Assert.IsTrue(response[1] == 0);
         }
     }
 }
