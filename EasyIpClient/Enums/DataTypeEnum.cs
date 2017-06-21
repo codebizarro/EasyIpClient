@@ -6,6 +6,7 @@
         InputWord = 2,
         OutputWord = 3,
         Regitsters = 4,
+        Timer = 5,
         Strings = 11
     }
 }
