@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Channel\UdpChannelEx.cs" />
     <Compile Include="Channel\UdpChannel.cs" />
     <Compile Include="Channel\Interfaces\IChannel.cs" />
     <Compile Include="Constants\Constants.cs" />
