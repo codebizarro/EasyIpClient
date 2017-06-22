@@ -5,7 +5,7 @@ using System;
 namespace EasyIpClientTest
 {
     [TestClass]
-    public class ChannelTest: BaseTest
+    public class ChannelTest: BaseChannelTest
     {
         [TestMethod]
         public void CreationTest()
