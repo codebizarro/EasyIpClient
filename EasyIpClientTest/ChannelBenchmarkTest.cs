@@ -9,11 +9,8 @@ using EasyIpClient.Enums;
 namespace EasyIpClientTest
 {
     [TestClass]
-    public class ChannelBenchmarkTest
+    public class ChannelBenchmarkTest: BaseTest
     {
-        private const int bencmarkCount = 1000;
-        private const short sendDataSize = 200;
-        private const short receiveDataSize = 200;
 
         [TestMethod]
         public void ExecuteReadWriteBenchmarkTest()
@@ -24,7 +21,7 @@ namespace EasyIpClientTest
                 Flags = 0,
                 Error = 0,
                 Counter = 0, // Must increment in client
-                SendDataSize = sendDataSize,
+                SendDataSize = SEND_DATA_SIZE,
                 SendDataOffset = 0,
                 SendDataType = DataTypeEnum.FlagWord,
                 ReqDataSize = 0,
@@ -40,12 +37,12 @@ namespace EasyIpClientTest
                 SendDataSize = 0,
                 SendDataOffset = 0,
                 ReqDataType = DataTypeEnum.FlagWord,
-                ReqDataSize = receiveDataSize,
+                ReqDataSize = RECEIVE_DATA_SIZE,
                 ReqDataOffsetServer = 0,
                 ReqDataOffsetClient = 0
             };
 
-            for (int i = 0; i < bencmarkCount; i++)
+            for (int i = 0; i < BENCHMARK_COUNT; i++)
             {
                 writePacket.Data[0] = (short)i;
                 var response = client.Execute(writePacket.BuildRequest());
@@ -78,12 +75,12 @@ namespace EasyIpClientTest
                 SendDataSize = 0,
                 SendDataOffset = 0,
                 ReqDataType = DataTypeEnum.FlagWord,
-                ReqDataSize = receiveDataSize,
+                ReqDataSize = RECEIVE_DATA_SIZE,
                 ReqDataOffsetServer = 0,
                 ReqDataOffsetClient = 0
             };
 
-            for (int i = 0; i < bencmarkCount; i++)
+            for (int i = 0; i < BENCHMARK_COUNT; i++)
             {
                 var response = client.Execute(readPacket.BuildRequest());
                 Assert.IsNotNull(response);
@@ -102,7 +99,7 @@ namespace EasyIpClientTest
                 Flags = 0,
                 Error = 0,
                 Counter = 0, // Must increment in client
-                SendDataSize = sendDataSize,
+                SendDataSize = SEND_DATA_SIZE,
                 SendDataOffset = 0,
                 SendDataType = DataTypeEnum.FlagWord,
                 ReqDataSize = 0,
@@ -110,7 +107,7 @@ namespace EasyIpClientTest
                 ReqDataOffsetClient = 0
             };
 
-            for (int i = 0; i < bencmarkCount; i++)
+            for (int i = 0; i < BENCHMARK_COUNT; i++)
             {
                 writePacket.Data[0] = (short)i;
                 var response = client.Execute(writePacket.BuildRequest());

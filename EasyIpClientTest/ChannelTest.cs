@@ -8,7 +8,7 @@ using EasyIpClient.Enums;
 namespace EasyIpClientTest
 {
     [TestClass]
-    public class ChannelTest
+    public class ChannelTest: BaseTest
     {
         [TestMethod]
         public void CreationTest()
@@ -31,7 +31,7 @@ namespace EasyIpClientTest
                 SendDataSize = 0,
                 SendDataOffset = 0,
                 ReqDataType = DataTypeEnum.FlagWord,
-                ReqDataSize = 20,
+                ReqDataSize = RECEIVE_DATA_SIZE,
                 ReqDataOffsetServer = 0,
                 ReqDataOffsetClient = 0
             };
@@ -52,7 +52,7 @@ namespace EasyIpClientTest
                 Flags = 0,
                 Error = 0,
                 Counter = 0, // Must increment in client
-                SendDataSize = 2,
+                SendDataSize = SEND_DATA_SIZE,
                 SendDataOffset = 0,
                 SendDataType = DataTypeEnum.FlagWord,
                 ReqDataSize = 0,
