@@ -1,15 +1,17 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EasyIpClient.Channel.Interfaces;
 using System;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace EasyIpClientTest
 {
     [TestClass]
-    public class ChannelBenchmarkTest: BaseTest
+    public class ChannelBenchmarkTest : BaseChannelTest
     {
 
         [TestMethod]
-        public void ExecuteReadWriteBenchmarkTest()
+        public async Task ExecuteReadWriteBenchmarkTest()
         {
             IChannel client = GetChannelInstance();
             var writePacket = GetWritePacket();
@@ -17,23 +19,28 @@ namespace EasyIpClientTest
 
             for (int i = 0; i < BENCHMARK_COUNT; i++)
             {
-                writePacket.Data[0] = (short)i;
-                var response = client.Execute(writePacket.BuildRequest());
+                await Task.Run(() =>
+                    {
+                        writePacket.Data[0] = (short)i;
+                        var response = client.Execute(writePacket.BuildRequest());
 
-                Assert.IsNotNull(response);
-                Assert.IsTrue(response[1] == 0);
+                        Assert.IsNotNull(response);
+                        Assert.IsTrue(response[1] == 0);
 
-                response = client.Execute(readPacket.BuildRequest());
+                        response = client.Execute(readPacket.BuildRequest());
 
-                Assert.IsNotNull(response);
-                Assert.IsTrue(response[1] == 0);
-                Assert.AreEqual((byte)readPacket.ReqDataType, response[13]);
-                Assert.AreEqual(readPacket.ReqDataSize, BitConverter.ToInt16(response, 14));
+                        Assert.IsNotNull(response);
+                        Assert.IsTrue(response[1] == 0);
+                        Assert.AreEqual((byte)readPacket.ReqDataType, response[13]);
+                        Assert.AreEqual(readPacket.ReqDataSize, BitConverter.ToInt16(response, 14));
 
-                ushort testValue = response[21];
-                testValue <<= 8;
-                testValue |= response[20];
-                Assert.AreEqual(i, testValue);
+                        ushort testValue = response[21];
+                        testValue <<= 8;
+                        testValue |= response[20];
+                        Assert.AreEqual(i, testValue);
+                        Debug.Write(string.Format($"{i} == {testValue}"));
+                    }
+                );
             }
         }
 

@@ -6,11 +6,12 @@ using EasyIpClient.Model;
 
 namespace EasyIpClientTest
 {
-    public class BaseTest
+    public class BaseChannelTest
     {
-        protected const int BENCHMARK_COUNT = 100;
+        protected const int BENCHMARK_COUNT = 1000;
         protected const short SEND_DATA_SIZE = 256;
         protected const short RECEIVE_DATA_SIZE = 256;
+        protected const short REMOTE_OFFSET = 9744;
 
         protected IChannel GetChannelInstance()
         {
@@ -26,10 +27,10 @@ namespace EasyIpClientTest
                 Counter = 0, // Must increment in client
                 SendDataType = 0,
                 SendDataSize = 0,
-                SendDataOffset = 0,
+                SendDataOffset = REMOTE_OFFSET,
                 ReqDataType = DataTypeEnum.FlagWord,
                 ReqDataSize = RECEIVE_DATA_SIZE,
-                ReqDataOffsetServer = 0,
+                ReqDataOffsetServer = REMOTE_OFFSET,
                 ReqDataOffsetClient = 0
             };
         }
@@ -42,10 +43,10 @@ namespace EasyIpClientTest
                 Error = 0,
                 Counter = 0, // Must increment in client
                 SendDataSize = SEND_DATA_SIZE,
-                SendDataOffset = 0,
+                SendDataOffset = REMOTE_OFFSET,
                 SendDataType = DataTypeEnum.FlagWord,
                 ReqDataSize = 0,
-                ReqDataOffsetServer = 0,
+                ReqDataOffsetServer = REMOTE_OFFSET,
                 ReqDataOffsetClient = 0
             };
         }
