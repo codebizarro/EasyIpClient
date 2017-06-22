@@ -12,17 +12,19 @@ namespace EasyIpClientTest
     public class ChannelBenchmarkTest
     {
         private const int bencmarkCount = 1000;
+        private const short sendDataSize = 200;
+        private const short receiveDataSize = 200;
 
         [TestMethod]
         public void ExecuteReadWriteBenchmarkTest()
         {
-            IChannel client = new UdpChannel(new IPEndPoint(IPAddress.Parse(Configuration.Address), Constants.EASYIP_PORT));
+            IChannel client = new UdpChannel(Configuration.Address, Constants.EASYIP_PORT);
             var writePacket = new EasyIpPacket
             {
                 Flags = 0,
                 Error = 0,
                 Counter = 0, // Must increment in client
-                SendDataSize = 2,
+                SendDataSize = sendDataSize,
                 SendDataOffset = 0,
                 SendDataType = DataTypeEnum.FlagWord,
                 ReqDataSize = 0,
@@ -38,7 +40,7 @@ namespace EasyIpClientTest
                 SendDataSize = 0,
                 SendDataOffset = 0,
                 ReqDataType = DataTypeEnum.FlagWord,
-                ReqDataSize = 20,
+                ReqDataSize = receiveDataSize,
                 ReqDataOffsetServer = 0,
                 ReqDataOffsetClient = 0
             };
@@ -66,7 +68,7 @@ namespace EasyIpClientTest
         [TestMethod]
         public void ExecuteReadBenchmarkTest()
         {
-            IChannel client = new UdpChannel(new IPEndPoint(IPAddress.Parse(Configuration.Address), Constants.EASYIP_PORT));
+            IChannel client = new UdpChannel(Configuration.Address, Constants.EASYIP_PORT);
             var readPacket = new EasyIpPacket
             {
                 Flags = 0,
@@ -76,7 +78,7 @@ namespace EasyIpClientTest
                 SendDataSize = 0,
                 SendDataOffset = 0,
                 ReqDataType = DataTypeEnum.FlagWord,
-                ReqDataSize = 20,
+                ReqDataSize = receiveDataSize,
                 ReqDataOffsetServer = 0,
                 ReqDataOffsetClient = 0
             };
@@ -94,13 +96,13 @@ namespace EasyIpClientTest
         [TestMethod]
         public void ExecuteWriteBenchmarkTest()
         {
-            IChannel client = new UdpChannel(new IPEndPoint(IPAddress.Parse(Configuration.Address), Constants.EASYIP_PORT));
+            IChannel client = new UdpChannel(Configuration.Address, Constants.EASYIP_PORT);
             var writePacket = new EasyIpPacket
             {
                 Flags = 0,
                 Error = 0,
                 Counter = 0, // Must increment in client
-                SendDataSize = 2,
+                SendDataSize = sendDataSize,
                 SendDataOffset = 0,
                 SendDataType = DataTypeEnum.FlagWord,
                 ReqDataSize = 0,
