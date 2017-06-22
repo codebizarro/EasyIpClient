@@ -2,6 +2,7 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace EasyIpClient.Channel
 {
@@ -32,6 +33,11 @@ namespace EasyIpClient.Channel
             var recvLength = _socket.ReceiveFrom(recvBuffer, SocketFlags.None, ref endPoint);
             Array.Resize<byte>(ref recvBuffer, recvLength);
             return recvBuffer;
+        }
+
+        public Task<byte[]> ExecuteAsync(byte[] buffer)
+        {
+            throw new NotImplementedException();
         }
 
         public int SendTimeout

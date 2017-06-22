@@ -2,6 +2,7 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace EasyIpClient.Channel
 {
@@ -28,6 +29,13 @@ namespace EasyIpClient.Channel
         {
             _client.Send(buffer, buffer.Length);
             return _client.Receive(ref _endPoint);
+        }
+
+        public async Task<byte[]> ExecuteAsync(byte[] buffer)
+        {
+            await _client.SendAsync(buffer, buffer.Length);
+            var result = await _client.ReceiveAsync();
+            return result.Buffer;
         }
 
         public int SendTimeout

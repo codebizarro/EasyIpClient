@@ -11,7 +11,7 @@ namespace EasyIpClientTest
     {
 
         [TestMethod]
-        public async Task ExecuteReadWriteBenchmarkTest()
+        public async Task ExecuteReadWriteBenchmarkTestAsync()
         {
             IChannel client = GetChannelInstance();
             var writePacket = GetWritePacket();
@@ -19,15 +19,15 @@ namespace EasyIpClientTest
 
             for (int i = 0; i < BENCHMARK_COUNT; i++)
             {
-                await Task.Run(() =>
+                await Task.Run(async () =>
                     {
                         writePacket.Data[0] = (short)i;
-                        var response = client.Execute(writePacket.BuildRequest());
+                        var response = await client.ExecuteAsync(writePacket.BuildRequest());
 
                         Assert.IsNotNull(response);
                         Assert.IsTrue(response[1] == 0);
 
-                        response = client.Execute(readPacket.BuildRequest());
+                        response = await client.ExecuteAsync(readPacket.BuildRequest());
 
                         Assert.IsNotNull(response);
                         Assert.IsTrue(response[1] == 0);
@@ -41,6 +41,37 @@ namespace EasyIpClientTest
                         Debug.Write(string.Format($"{i} == {testValue}"));
                     }
                 );
+            }
+        }
+
+        [TestMethod]
+        public void ExecuteReadWriteBenchmarkTest()
+        {
+            IChannel client = GetChannelInstance();
+            var writePacket = GetWritePacket();
+            var readPacket = GetReadPacket();
+
+            for (int i = 0; i < BENCHMARK_COUNT; i++)
+            {
+
+                writePacket.Data[0] = (short)i;
+                var response = client.Execute(writePacket.BuildRequest());
+
+                Assert.IsNotNull(response);
+                Assert.IsTrue(response[1] == 0);
+
+                response = client.Execute(readPacket.BuildRequest());
+
+                Assert.IsNotNull(response);
+                Assert.IsTrue(response[1] == 0);
+                Assert.AreEqual((byte)readPacket.ReqDataType, response[13]);
+                Assert.AreEqual(readPacket.ReqDataSize, BitConverter.ToInt16(response, 14));
+
+                ushort testValue = response[21];
+                testValue <<= 8;
+                testValue |= response[20];
+                Assert.AreEqual(i, testValue);
+                Debug.Write(string.Format($"{i} == {testValue}"));
             }
         }
 
