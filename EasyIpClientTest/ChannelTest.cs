@@ -17,7 +17,7 @@ namespace EasyIpClientTest
         [TestMethod]
         public void CreationTest()
         {
-            var client = new UdpChannel(new IPEndPoint(IPAddress.Parse(Configuration.Address), Constants.EASYIP_PORT));
+            var client = new UdpChannel(Configuration.Address, Constants.EASYIP_PORT);
             Assert.IsNotNull(client);
             Assert.IsInstanceOfType(client, typeof(IChannel));
         }
@@ -38,7 +38,7 @@ namespace EasyIpClientTest
         [TestMethod]
         public void ExecuteReadTest()
         {
-            IChannel client = new UdpChannel(new IPEndPoint(IPAddress.Parse(Configuration.Address), Constants.EASYIP_PORT));
+            IChannel client = new UdpChannel(Configuration.Address, Constants.EASYIP_PORT);
             var packet = new EasyIpPacket
             {
                 Flags = 0,
@@ -63,7 +63,7 @@ namespace EasyIpClientTest
         [TestMethod]
         public void ExecuteWriteTest()
         {
-            IChannel client = new UdpChannel(new IPEndPoint(IPAddress.Parse(Configuration.Address), Constants.EASYIP_PORT));
+            IChannel client = new UdpChannel(Configuration.Address, Constants.EASYIP_PORT);
             var packet = new EasyIpPacket
             {
                 Flags = 0,
@@ -114,7 +114,7 @@ namespace EasyIpClientTest
                 ReqDataOffsetClient = 0
             };
 
-            for (int i = 0; i < ushort.MaxValue; i++)
+            for (int i = 0; i < 1000 /*ushort.MaxValue*/; i++)
             {
                 writePacket.Data[0] = (short)i;
                 var response = client.Execute(writePacket.BuildRequest());

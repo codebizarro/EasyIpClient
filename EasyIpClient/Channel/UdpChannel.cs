@@ -7,31 +7,38 @@ namespace EasyIpClient.Channel
 {
     public sealed class UdpChannel : IChannel, IDisposable
     {
-        private UdpClient Client;
-        private IPEndPoint EndPoint;
+        private UdpClient _client;
+        private IPEndPoint _endPoint;
 
-        public UdpChannel(IPEndPoint endpoint)
+        public UdpChannel(IPEndPoint endPoint)
         {
-            EndPoint = endpoint;
-            Client = new UdpClient();
-            Client.Connect(endpoint);
+            _endPoint = endPoint;
+            _client = new UdpClient();
+            _client.Connect(endPoint);
+        }
+
+        public UdpChannel(string host, int port)
+        {
+            _endPoint = new IPEndPoint(IPAddress.Parse(host), port);
+            _client = new UdpClient();
+            _client.Connect(_endPoint);
         }
 
         public byte[] Execute(byte[] buffer)
         {
-            Client.Send(buffer, buffer.Length);
-            return Client.Receive(ref EndPoint);
+            _client.Send(buffer, buffer.Length);
+            return _client.Receive(ref _endPoint);
         }
 
         public int SendTimeout
         {
             get
             {
-                return Client.Client.SendTimeout;
+                return _client.Client.SendTimeout;
             }
             set
             {
-                Client.Client.SendTimeout = value;
+                _client.Client.SendTimeout = value;
             }
         }
 
@@ -39,11 +46,11 @@ namespace EasyIpClient.Channel
         {
             get
             {
-                return Client.Client.ReceiveTimeout;
+                return _client.Client.ReceiveTimeout;
             }
             set
             {
-                Client.Client.ReceiveTimeout = value;
+                _client.Client.ReceiveTimeout = value;
             }
         }
 
@@ -61,10 +68,10 @@ namespace EasyIpClient.Channel
             {
                 if (disposing)
                 {
-                    if (Client != null)
+                    if (_client != null)
                     {
-                        Client.Close();
-                        Client = null;
+                        _client.Close();
+                        _client = null;
                     }
                 }
                 disposed = true;
