@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EasyIpClient.Channel.Interfaces;
+using System;
 
 namespace EasyIpClientTest
 {
@@ -27,7 +28,7 @@ namespace EasyIpClientTest
                 Assert.IsNotNull(response);
                 Assert.IsTrue(response[1] == 0);
                 Assert.AreEqual((byte)readPacket.ReqDataType, response[13]);
-                Assert.AreEqual(readPacket.ReqDataSize, response[14]);
+                Assert.AreEqual(readPacket.ReqDataSize, BitConverter.ToInt16(response, 14));
 
                 ushort testValue = response[21];
                 testValue <<= 8;
@@ -48,7 +49,7 @@ namespace EasyIpClientTest
                 Assert.IsNotNull(response);
                 Assert.IsTrue(response[1] == 0);
                 Assert.AreEqual((byte)readPacket.ReqDataType, response[13]);
-                Assert.AreEqual(readPacket.ReqDataSize, response[14]);
+                Assert.AreEqual(readPacket.ReqDataSize, BitConverter.ToInt16(response, 14));
             }
         }
 
