@@ -1,4 +1,5 @@
 ﻿using EasyIpClient.Channel.Interfaces;
+using EasyIpClient.Common;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EasyIpClient.Channel
 {
-    public sealed class UdpChannelEx : IChannel, IDisposable
+    public sealed class UdpChannelEx : Disposable, IChannel
     {
         private Socket _socket;
         private IPEndPoint _endPoint;
@@ -65,33 +66,29 @@ namespace EasyIpClient.Channel
             }
         }
 
-        private bool disposed = false;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    if (_socket != null)
-                    {
-                        _socket.Close();
-                        _socket = null;
-                    }
-                }
-                disposed = true;
-            }
-        }
-
         ~UdpChannelEx()
         {
             Dispose(false);
+        }
+
+        public bool IsDisposed { get; private set; }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (IsDisposed)
+                return;
+
+            if (disposing)
+            {
+                if (_socket != null)
+                {
+                    _socket.Close();
+                    _socket = null;
+                }
+            }
+
+            IsDisposed = true;
+            base.Dispose(disposing);
         }
     }
 }
