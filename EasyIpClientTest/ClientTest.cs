@@ -9,6 +9,8 @@ namespace EasyIpClientTest
     {
         private IEasyIpClient _client;
         private const byte LENGTH = 2;
+        private const short POINT = 0;
+        
         public ClientTest()
         {
             _client = GetClientInstance();
@@ -53,10 +55,77 @@ namespace EasyIpClientTest
         [TestMethod]
         public void BatchReadTest()
         {
-            var result = _client.BatchReadWord<short>(0, DataTypeEnum.FlagWord, LENGTH);
+            var result = _client.BatchReadWord<short>(POINT, DataTypeEnum.FlagWord, LENGTH);
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Length == LENGTH);
+        }
+
+        [TestMethod]
+        public void BatchWriteTest()
+        {
+            var val = new short[] { 254, 201 };
+            _client.BatchWriteWord<short>(POINT, val, DataTypeEnum.FlagWord);
+        }
+
+        [TestMethod]
+        public void BatchShortReadWriteTest()
+        {
+            var val = new short[LENGTH] { 254, 201 };
+            _client.BatchWriteWord<short>(POINT, val, DataTypeEnum.FlagWord);
+            var result = _client.BatchReadWord<short>(POINT, DataTypeEnum.FlagWord, LENGTH);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Length == LENGTH);
+            for (int i = 0; i < LENGTH; i++)
+            {
+                Assert.AreEqual(val[i], result[i]);
+            }
+        }
+
+        [TestMethod]
+        public void BatchIntReadWriteTest()
+        {
+            var val = new int[LENGTH] { int.MaxValue - 1, int.MaxValue - 2 };
+            _client.BatchWriteWord<int>(POINT, val, DataTypeEnum.FlagWord);
+            var result = _client.BatchReadWord<int>(POINT, DataTypeEnum.FlagWord, LENGTH);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Length == LENGTH);
+            for (int i = 0; i < LENGTH; i++)
+            {
+                Assert.AreEqual(val[i], result[i]);
+            }
+        }
+
+        [TestMethod]
+        public void BatchLongReadWriteTest()
+        {
+            var val = new long[LENGTH] { long.MaxValue-1, long.MaxValue-2 };
+            _client.BatchWriteWord<long>(POINT, val, DataTypeEnum.FlagWord);
+            var result = _client.BatchReadWord<long>(POINT, DataTypeEnum.FlagWord, LENGTH);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Length == LENGTH);
+            for (int i = 0; i < LENGTH; i++)
+            {
+                Assert.AreEqual(val[i], result[i]);
+            }
+        }
+
+        [TestMethod]
+        public void BatchDoubleReadWriteTest()
+        {
+            var val = new double[LENGTH] { double.MaxValue - 1, double.MaxValue - 2 };
+            _client.BatchWriteWord<double>(POINT, val, DataTypeEnum.FlagWord);
+            var result = _client.BatchReadWord<double>(POINT, DataTypeEnum.FlagWord, LENGTH);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Length == LENGTH);
+            for (int i = 0; i < LENGTH; i++)
+            {
+                Assert.AreEqual(val[i], result[i]);
+            }
         }
     }
 }
