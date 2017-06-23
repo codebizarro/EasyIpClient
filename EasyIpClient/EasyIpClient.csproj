@@ -43,6 +43,7 @@
     <Compile Include="Channel\UdpChannelEx.cs" />
     <Compile Include="Channel\UdpChannel.cs" />
     <Compile Include="Channel\Interfaces\IChannel.cs" />
+    <Compile Include="Common\Disposable.cs" />
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Enums\DataTypeEnum.cs" />
     <Compile Include="Enums\ErrorTypeEnum.cs" />
@@ -53,5 +54,6 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
