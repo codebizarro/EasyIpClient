@@ -1,6 +1,6 @@
-﻿namespace EasyIpClient.Constants
+﻿namespace EasyIpClient.Common
 {
-    public static class Constants
+    internal static class Constants
     {
         public const int EASYIP_PORT = 995;
         public const int EASYIP_HEADERSIZE = 20;

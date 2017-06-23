@@ -43,11 +43,15 @@
     <Compile Include="Channel\UdpChannelEx.cs" />
     <Compile Include="Channel\UdpChannel.cs" />
     <Compile Include="Channel\Interfaces\IChannel.cs" />
+    <Compile Include="Client\EasyIpClient.cs" />
+    <Compile Include="Client\Interfaces\IEasyIpClient.cs" />
     <Compile Include="Common\Disposable.cs" />
-    <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Common\Constants.cs" />
     <Compile Include="Enums\DataTypeEnum.cs" />
     <Compile Include="Enums\ErrorTypeEnum.cs" />
     <Compile Include="Enums\FlagTypeEnum.cs" />
+    <Compile Include="Extensions\PacketExtensions.cs" />
+    <Compile Include="Helpers\PacketFactory.cs" />
     <Compile Include="Model\EasyIpPacket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

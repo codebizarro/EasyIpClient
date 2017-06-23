@@ -1,6 +1,4 @@
 ﻿using EasyIpClient.Enums;
-using System;
-using System.IO;
 
 namespace EasyIpClient.Model
 {
@@ -50,7 +48,7 @@ namespace EasyIpClient.Model
         /// 2 bytes
         /// Number of words
         /// </summary>
-        public short SendDataSize;
+        public ushort SendDataSize;
         /// <summary>
         /// 2 bytes
         /// Target offset in server
@@ -71,7 +69,7 @@ namespace EasyIpClient.Model
         /// 2 bytes
         /// Number of words
         /// </summary>
-        public short ReqDataSize;
+        public ushort ReqDataSize;
         /// <summary>
         /// 2 bytes
         /// Offset in server
@@ -86,40 +84,6 @@ namespace EasyIpClient.Model
         /// N*2 bytes
         /// Data send by client or requested data
         /// </summary>
-        public short[] Data = new short[256];
-
-        private const byte PACKET_HEADER_SIZE = 20;
-
-        private const byte SHORT_SIZE = sizeof(short);
-
-        public byte[] BuildRequest()
-        {
-            var _buffer = new byte[PACKET_HEADER_SIZE + SendDataSize * SHORT_SIZE];
-            using (var stream = new MemoryStream())
-            {
-                using (var writer = new BinaryWriter(stream))
-                {
-                    writer.Write(Flags);
-                    writer.Write(Error);
-                    writer.Write(Counter);
-                    writer.Write(Spare1);
-                    writer.Write((byte)SendDataType);
-                    writer.Write(SendDataSize);
-                    writer.Write(SendDataOffset);
-                    writer.Write(Spare2);
-                    writer.Write((byte)ReqDataType);
-                    writer.Write(ReqDataSize);
-                    writer.Write(ReqDataOffsetServer);
-                    writer.Write(ReqDataOffsetClient);
-                }
-                Buffer.BlockCopy(stream.ToArray(), 0, _buffer, 0, PACKET_HEADER_SIZE);
-            }
-
-            if (SendDataSize > 0)
-            {
-                Buffer.BlockCopy(Data, 0, _buffer, PACKET_HEADER_SIZE, SendDataSize * SHORT_SIZE);
-            }
-            return _buffer;
-        }
+        public short[] Data = new short[255];
     }
 }

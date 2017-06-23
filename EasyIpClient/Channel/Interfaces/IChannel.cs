@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace EasyIpClient.Channel.Interfaces
 {
-    public interface IChannel
+    public interface IChannel: IDisposable
     {
         byte[] Execute(byte[] buffer);
 

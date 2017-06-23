@@ -19,7 +19,17 @@ namespace EasyIpClient.Common
         {
             if (_disposed)
                 return;
+
+            if (disposing)
+            {
+                // Free any other managed objects here.
+                //
+            }
+
+            // Free any unmanaged objects here.
+            //
             _disposed = true;
+
         }
 
         ~Disposable()
