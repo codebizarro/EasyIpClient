@@ -75,6 +75,7 @@ namespace EasyIpClient.Channel
             if (IsDisposed)
                 return;
 
+            IsDisposed = true;
             if (disposing)
             {
                 if (_client != null)
@@ -82,10 +83,11 @@ namespace EasyIpClient.Channel
                     _client.Close();
                     _client = null;
                 }
+                GC.SuppressFinalize(this);
             }
-            
-            IsDisposed = true;
+
             base.Dispose(disposing);
+            // free unmanaged resources here
         }
     }
 }
