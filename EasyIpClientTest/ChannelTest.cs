@@ -1,8 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using EasyIpClient.Channel.Interfaces;
 using System;
-using EasyIpClient.Helpers;
-using EasyIpClient.Extensions;
+using System.Net.EasyIp.Enums;
+using System.Net.EasyIp.Extensions;
+using System.Net.EasyIp.Helpers;
+using System.Net.EasyIp.Interfaces;
 
 namespace EasyIpClientTest
 {
@@ -12,17 +13,17 @@ namespace EasyIpClientTest
         [TestMethod]
         public void CreationTest()
         {
-            var client = GetChannelInstance();
+            var channel = GetChannelInstance();
 
-            Assert.IsNotNull(client);
-            Assert.IsInstanceOfType(client, typeof(IChannel));
+            Assert.IsNotNull(channel);
+            Assert.IsInstanceOfType(channel, typeof(IChannel));
         }
 
         [TestMethod]
         public void ExecuteReadTest()
         {
             IChannel client = GetChannelInstance();
-            var readPacket = PacketFactory.GetReadPacket(REMOTE_OFFSET, EasyIpClient.Enums.DataTypeEnum.FlagWord, byte.MaxValue);
+            var readPacket = PacketFactory.GetReadPacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
             var response = client.Execute(readPacket.ToByteArray());
 
             Assert.IsNotNull(response);
@@ -35,7 +36,7 @@ namespace EasyIpClientTest
         public void ExecuteWriteTest()
         {
             IChannel client = GetChannelInstance();
-            var writePacket = PacketFactory.GetWritePacket(REMOTE_OFFSET, EasyIpClient.Enums.DataTypeEnum.FlagWord, byte.MaxValue);
+            var writePacket = PacketFactory.GetWritePacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
             writePacket.Data[0] = 255;
             writePacket.Data[1] = 254;
             writePacket.Data[254] = 254;

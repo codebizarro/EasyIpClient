@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EasyIpClient.Common
+namespace System.Net.EasyIp.Common
 {
     public abstract class Disposable : IDisposable
     {

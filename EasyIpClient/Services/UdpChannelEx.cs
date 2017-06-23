@@ -1,11 +1,9 @@
-﻿using EasyIpClient.Channel.Interfaces;
-using EasyIpClient.Common;
-using System;
-using System.Net;
+﻿using System.Net.EasyIp.Common;
+using System.Net.EasyIp.Interfaces;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
-namespace EasyIpClient.Channel
+namespace System.Net.EasyIp
 {
     public sealed class UdpChannelEx : Disposable, IChannel
     {

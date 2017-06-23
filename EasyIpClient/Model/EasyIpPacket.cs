@@ -1,6 +1,6 @@
-﻿using EasyIpClient.Enums;
+﻿using System.Net.EasyIp.Enums;
 
-namespace EasyIpClient.Model
+namespace System.Net.EasyIp
 {
     public class EasyIpPacket
     {

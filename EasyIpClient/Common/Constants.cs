@@ -1,4 +1,4 @@
-﻿namespace EasyIpClient.Common
+﻿namespace System.Net.EasyIp.Common
 {
     internal static class Constants
     {

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace EasyIpClient.Channel.Interfaces
+namespace System.Net.EasyIp.Interfaces
 {
     public interface IChannel: IDisposable
     {

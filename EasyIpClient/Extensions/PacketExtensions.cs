@@ -1,9 +1,7 @@
-﻿using EasyIpClient.Common;
-using EasyIpClient.Model;
-using System;
-using System.IO;
+﻿using System.IO;
+using System.Net.EasyIp.Common;
 
-namespace EasyIpClient.Extensions
+namespace System.Net.EasyIp.Extensions
 {
     public static class PacketExtensions
     {

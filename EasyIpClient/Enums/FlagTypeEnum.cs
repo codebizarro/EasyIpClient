@@ -1,4 +1,4 @@
-﻿namespace EasyIpClient.Enums
+﻿namespace System.Net.EasyIp.Enums
 {
     public enum FlagTypeEnum
     {

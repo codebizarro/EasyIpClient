@@ -1,10 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using EasyIpClient.Channel.Interfaces;
 using System;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using EasyIpClient.Helpers;
-using EasyIpClient.Extensions;
+using System.Net.EasyIp.Interfaces;
+using System.Net.EasyIp.Helpers;
+using System.Net.EasyIp.Enums;
+using System.Net.EasyIp.Extensions;
 
 namespace EasyIpClientTest
 {
@@ -16,8 +17,8 @@ namespace EasyIpClientTest
         public async Task ExecuteReadWriteBenchmarkTestAsync()
         {
             IChannel client = GetChannelInstance();
-            var writePacket = PacketFactory.GetWritePacket(REMOTE_OFFSET, EasyIpClient.Enums.DataTypeEnum.FlagWord, byte.MaxValue);
-            var readPacket = PacketFactory.GetReadPacket(REMOTE_OFFSET, EasyIpClient.Enums.DataTypeEnum.FlagWord, byte.MaxValue);
+            var writePacket = PacketFactory.GetWritePacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
+            var readPacket = PacketFactory.GetReadPacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
 
             for (int i = 0; i < BENCHMARK_COUNT; i++)
             {
@@ -50,8 +51,8 @@ namespace EasyIpClientTest
         public void ExecuteReadWriteBenchmarkTest()
         {
             IChannel client = GetChannelInstance();
-            var writePacket = PacketFactory.GetWritePacket(REMOTE_OFFSET, EasyIpClient.Enums.DataTypeEnum.FlagWord, byte.MaxValue);
-            var readPacket = PacketFactory.GetReadPacket(REMOTE_OFFSET, EasyIpClient.Enums.DataTypeEnum.FlagWord, byte.MaxValue);
+            var writePacket = PacketFactory.GetWritePacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
+            var readPacket = PacketFactory.GetReadPacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
 
             for (int i = 0; i < BENCHMARK_COUNT; i++)
             {
@@ -81,7 +82,7 @@ namespace EasyIpClientTest
         public void ExecuteReadBenchmarkTest()
         {
             IChannel client = GetChannelInstance();
-            var readPacket = PacketFactory.GetReadPacket(REMOTE_OFFSET, EasyIpClient.Enums.DataTypeEnum.FlagWord, byte.MaxValue);
+            var readPacket = PacketFactory.GetReadPacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
             for (int i = 0; i < BENCHMARK_COUNT; i++)
             {
                 var response = client.Execute(readPacket.ToByteArray());
@@ -97,7 +98,7 @@ namespace EasyIpClientTest
         public void ExecuteWriteBenchmarkTest()
         {
             IChannel client = GetChannelInstance();
-            var writePacket = PacketFactory.GetWritePacket(REMOTE_OFFSET, EasyIpClient.Enums.DataTypeEnum.FlagWord, byte.MaxValue);
+            var writePacket = PacketFactory.GetWritePacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
             for (int i = 0; i < BENCHMARK_COUNT; i++)
             {
                 writePacket.Data[0] = (short)i;

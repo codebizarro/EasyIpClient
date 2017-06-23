@@ -50,7 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseChannelTest.cs" />
+    <Compile Include="BaseClientTest.cs" />
     <Compile Include="ChannelTest.cs" />
+    <Compile Include="ClientTest.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ChannelBenchmarkTest.cs" />
