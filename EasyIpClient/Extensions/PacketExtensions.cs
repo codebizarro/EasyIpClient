@@ -7,8 +7,7 @@ namespace System.Net.EasyIp.Extensions
     {
         public static byte[] ToByteArray(this EasyIpPacket packet)
         {
-            byte SHORT_SIZE = sizeof(short);
-            var _buffer = new byte[Constants.EASYIP_HEADERSIZE + packet.SendDataSize * SHORT_SIZE];
+            var _buffer = new byte[Constants.EASYIP_HEADERSIZE + packet.SendDataSize * Constants.SHORT_SIZE];
             using (var stream = new MemoryStream())
             {
                 using (var writer = new BinaryWriter(stream))
@@ -31,7 +30,7 @@ namespace System.Net.EasyIp.Extensions
 
             if (packet.SendDataSize > 0)
             {
-                Buffer.BlockCopy(packet.Data, 0, _buffer, Constants.EASYIP_HEADERSIZE, packet.SendDataSize * SHORT_SIZE);
+                Buffer.BlockCopy(packet.Data, 0, _buffer, Constants.EASYIP_HEADERSIZE, packet.SendDataSize * Constants.SHORT_SIZE);
             }
             return _buffer;
         }
