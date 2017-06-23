@@ -1,7 +1,6 @@
-﻿using EasyIpClient.Enums;
-using EasyIpClient.Model;
+﻿using System.Net.EasyIp.Enums;
 
-namespace EasyIpClient.Helpers
+namespace System.Net.EasyIp.Helpers
 {
     public static class PacketFactory
     { 

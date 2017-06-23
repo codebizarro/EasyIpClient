@@ -7,7 +7,7 @@
     <ProjectGuid>{A1C04049-25BA-4354-90EA-1FB4CC99821F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EasyIpClient</RootNamespace>
+    <RootNamespace>System.Net.EasyIp</RootNamespace>
     <AssemblyName>EasyIpClient</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -40,11 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Channel\UdpChannelEx.cs" />
-    <Compile Include="Channel\UdpChannel.cs" />
-    <Compile Include="Channel\Interfaces\IChannel.cs" />
-    <Compile Include="Client\EasyIpClient.cs" />
-    <Compile Include="Client\Interfaces\IEasyIpClient.cs" />
+    <Compile Include="Services\UdpChannelEx.cs" />
+    <Compile Include="Services\UdpChannel.cs" />
+    <Compile Include="Interfaces\IChannel.cs" />
+    <Compile Include="Implementation\EasyIpClient.cs" />
+    <Compile Include="Interfaces\IEasyIpClient.cs" />
     <Compile Include="Common\Disposable.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Enums\DataTypeEnum.cs" />

@@ -1,7 +1,5 @@
-﻿using EasyIpClient.Channel;
-using EasyIpClient.Channel.Interfaces;
-using EasyIpClient.Enums;
-using EasyIpClient.Model;
+﻿using System.Net.EasyIp;
+using System.Net.EasyIp.Interfaces;
 
 namespace EasyIpClientTest
 {
