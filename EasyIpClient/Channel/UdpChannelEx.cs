@@ -78,7 +78,6 @@ namespace EasyIpClient.Channel
             if (IsDisposed)
                 return;
 
-            IsDisposed = true;
             if (disposing)
             {
                 if (_socket != null)
@@ -88,9 +87,12 @@ namespace EasyIpClient.Channel
                 }
                 GC.SuppressFinalize(this);
             }
-            
+
+            // Free any unmanaged objects here.
+            //
+            IsDisposed = true;
+
             base.Dispose(disposing);
-            // free unmanaged resources here
         }
     }
 }

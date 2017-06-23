@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EasyIpClient.Channel.Interfaces;
 using System;
+using EasyIpClient.Helpers;
+using EasyIpClient.Extensions;
 
 namespace EasyIpClientTest
 {
@@ -20,24 +22,24 @@ namespace EasyIpClientTest
         public void ExecuteReadTest()
         {
             IChannel client = GetChannelInstance();
-            var packet = GetReadPacket();
-            var response = client.Execute(packet.BuildRequest());
+            var readPacket = PacketFactory.GetReadPacket(REMOTE_OFFSET, EasyIpClient.Enums.DataTypeEnum.FlagWord, byte.MaxValue);
+            var response = client.Execute(readPacket.ToByteArray());
 
             Assert.IsNotNull(response);
             Assert.IsTrue(response[1] == 0);
-            Assert.AreEqual((byte)packet.ReqDataType, response[13]);
-            Assert.AreEqual(packet.ReqDataSize, BitConverter.ToInt16(response, 14));
+            Assert.AreEqual((byte)readPacket.ReqDataType, response[13]);
+            Assert.AreEqual(readPacket.ReqDataSize, BitConverter.ToUInt16(response, 14));
         }
 
         [TestMethod]
         public void ExecuteWriteTest()
         {
             IChannel client = GetChannelInstance();
-            var packet = GetWritePacket();
-            packet.Data[0] = 255;
-            packet.Data[1] = 254;
-            packet.Data[255] = 255;
-            var response = client.Execute(packet.BuildRequest());
+            var writePacket = PacketFactory.GetWritePacket(REMOTE_OFFSET, EasyIpClient.Enums.DataTypeEnum.FlagWord, byte.MaxValue);
+            writePacket.Data[0] = 255;
+            writePacket.Data[1] = 254;
+            writePacket.Data[254] = 254;
+            var response = client.Execute(writePacket.ToByteArray());
 
             Assert.IsNotNull(response);
             Assert.IsTrue(response[1] == 0);
