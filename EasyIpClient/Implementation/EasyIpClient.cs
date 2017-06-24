@@ -6,7 +6,7 @@ using System.Net.EasyIp.Interfaces;
 
 namespace System.Net.EasyIp
 {
-    public class EasyIpClient: Disposable, IEasyIpClient
+    public sealed class EasyIpClient: Disposable, IEasyIpClient
     {
         private IChannel _channel;
         public EasyIpClient(IChannel channel)
