@@ -1,4 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="System.Net.EasyIp.Common.Disposable">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\Disposable.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Net.EasyIp.EasyIpClient">
+    <Position X="6.25" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAACAAgAAAAAAAABAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Implementation\EasyIpClient.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="System.Net.EasyIp.UdpChannel">
+    <Position X="3.25" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAEQAAAAgABgAAAAAIAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Services\UdpChannel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="System.Net.EasyIp.Interfaces.IChannel">
+    <Position X="3.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAgAAgAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Interfaces\IChannel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="System.Net.EasyIp.Interfaces.IEasyIpClient">
+    <Position X="6.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IEasyIpClient.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Font Name="Tahoma" Size="8.25" />
 </ClassDiagram>

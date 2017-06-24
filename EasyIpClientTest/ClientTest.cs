@@ -116,7 +116,7 @@ namespace EasyIpClientTest
         [TestMethod]
         public void BatchDoubleReadWriteTest()
         {
-            var val = new double[LENGTH] { double.MaxValue - 1, double.MaxValue - 2 };
+            var val = new double[LENGTH] { double.MaxValue - 0.1, double.MaxValue - 0.2 };
             _client.BatchWriteWord<double>(POINT, val, DataTypeEnum.FlagWord);
             var result = _client.BatchReadWord<double>(POINT, DataTypeEnum.FlagWord, LENGTH);
 
