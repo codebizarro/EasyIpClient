@@ -13,7 +13,10 @@ namespace EasyIpClientTest
 
         protected IChannel GetChannelInstance()
         {
-            return new UdpChannel(Configuration.Address, EASYIP_PORT);
+            var channel = new UdpChannel(Configuration.Address, EASYIP_PORT);
+            channel.SendTimeout = 100;
+            channel.ReceiveTimeout = 100;
+            return channel;
         }
     }
 }

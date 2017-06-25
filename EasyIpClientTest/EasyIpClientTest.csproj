@@ -54,6 +54,7 @@
     <Compile Include="ChannelTest.cs" />
     <Compile Include="ClientTest.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="ListExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ChannelBenchmarkTest.cs" />
   </ItemGroup>

@@ -4,7 +4,7 @@ namespace System.Net.EasyIp.Interfaces
 {
     public interface IEasyIpClient : IDisposable
     {
-        T[] BatchReadWord<T>(short point, DataTypeEnum dataType, byte length);
-        void BatchWriteWord<T>(short point, T[] val, DataTypeEnum dataType);
+        T[] BlockRead<T>(short point, DataTypeEnum dataType, byte length);
+        void BlockWrite<T>(short point, T[] val, DataTypeEnum dataType);
     }
 }
