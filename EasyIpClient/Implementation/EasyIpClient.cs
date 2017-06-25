@@ -14,7 +14,7 @@ namespace System.Net.EasyIp
             _channel = channel;
         }
 
-        public T[] BatchReadWord<T>(short point, DataTypeEnum dataType, byte length)
+        public T[] BlockRead<T>(short point, DataTypeEnum dataType, byte length)
         {
             int typeSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(T));
             byte count = (byte)(length * typeSize / Constants.SHORT_SIZE);
@@ -27,7 +27,7 @@ namespace System.Net.EasyIp
             return ret;
         }
 
-        public void BatchWriteWord<T>(short point, T[] val, DataTypeEnum dataType)
+        public void BlockWrite<T>(short point, T[] val, DataTypeEnum dataType)
         {
             int typeSize = System.Runtime.InteropServices.Marshal.SizeOf(typeof(T));
             byte count = (byte)(val.Length * typeSize / Constants.SHORT_SIZE);

@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.EasyIp.Enums;
 using System.Net.EasyIp.Interfaces;
 
@@ -8,12 +10,16 @@ namespace EasyIpClientTest
     public class ClientTest: BaseClientTest
     {
         private IEasyIpClient _client;
-        private const byte LENGTH = 2;
+        private const byte LENGTH = 64;
         private const short POINT = 0;
+        private List<int> _data = new List<int>();
         
         public ClientTest()
         {
             _client = GetClientInstance();
+            var sequence = Enumerable.Range(1, LENGTH);
+            _data.AddRange(sequence);
+            _data.Shuffle();
         }
 
         private TestContext testContextInstance;
@@ -28,6 +34,19 @@ namespace EasyIpClientTest
             {
                 testContextInstance = value;
             }
+        }
+
+        [ClassInitialize()]
+        public static void ClientInitialize(TestContext testContext)
+        {
+            
+        }
+
+
+        [TestInitialize()]
+        public void ClientTestInitialize()
+        {
+            _data.Shuffle();
         }
 
         #region Дополнительные атрибуты тестирования
@@ -55,7 +74,7 @@ namespace EasyIpClientTest
         [TestMethod]
         public void BatchReadTest()
         {
-            var result = _client.BatchReadWord<short>(POINT, DataTypeEnum.FlagWord, LENGTH);
+            var result = _client.BlockRead<short>(POINT, DataTypeEnum.FlagWord, LENGTH);
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Length == LENGTH);
@@ -64,16 +83,16 @@ namespace EasyIpClientTest
         [TestMethod]
         public void BatchWriteTest()
         {
-            var val = new short[] { 254, 201 };
-            _client.BatchWriteWord<short>(POINT, val, DataTypeEnum.FlagWord);
+            var val = _data.ToShortArray();
+            _client.BlockWrite<short>(POINT, val, DataTypeEnum.FlagWord);
         }
 
         [TestMethod]
         public void BatchShortReadWriteTest()
         {
-            var val = new short[LENGTH] { 254, 201 };
-            _client.BatchWriteWord<short>(POINT, val, DataTypeEnum.FlagWord);
-            var result = _client.BatchReadWord<short>(POINT, DataTypeEnum.FlagWord, LENGTH);
+            var val = _data.ToShortArray();
+            _client.BlockWrite<short>(POINT, val, DataTypeEnum.FlagWord);
+            var result = _client.BlockRead<short>(POINT, DataTypeEnum.FlagWord, LENGTH);
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Length == LENGTH);
@@ -86,9 +105,9 @@ namespace EasyIpClientTest
         [TestMethod]
         public void BatchIntReadWriteTest()
         {
-            var val = new int[LENGTH] { int.MaxValue - 1, int.MaxValue - 2 };
-            _client.BatchWriteWord<int>(POINT, val, DataTypeEnum.FlagWord);
-            var result = _client.BatchReadWord<int>(POINT, DataTypeEnum.FlagWord, LENGTH);
+            var val = _data.ToArray();
+            _client.BlockWrite<int>(POINT, val, DataTypeEnum.FlagWord);
+            var result = _client.BlockRead<int>(POINT, DataTypeEnum.FlagWord, LENGTH);
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Length == LENGTH);
@@ -101,9 +120,9 @@ namespace EasyIpClientTest
         [TestMethod]
         public void BatchLongReadWriteTest()
         {
-            var val = new long[LENGTH] { long.MaxValue-1, long.MaxValue-2 };
-            _client.BatchWriteWord<long>(POINT, val, DataTypeEnum.FlagWord);
-            var result = _client.BatchReadWord<long>(POINT, DataTypeEnum.FlagWord, LENGTH);
+            var val = _data.ToLongArray();
+            _client.BlockWrite<long>(POINT, val, DataTypeEnum.FlagWord);
+            var result = _client.BlockRead<long>(POINT, DataTypeEnum.FlagWord, LENGTH);
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Length == LENGTH);
@@ -116,9 +135,9 @@ namespace EasyIpClientTest
         [TestMethod]
         public void BatchDoubleReadWriteTest()
         {
-            var val = new double[LENGTH] { double.MaxValue - 0.1, double.MaxValue - 0.2 };
-            _client.BatchWriteWord<double>(POINT, val, DataTypeEnum.FlagWord);
-            var result = _client.BatchReadWord<double>(POINT, DataTypeEnum.FlagWord, LENGTH);
+            var val = _data.ToDoubleArray();
+            _client.BlockWrite<double>(POINT, val, DataTypeEnum.FlagWord);
+            var result = _client.BlockRead<double>(POINT, DataTypeEnum.FlagWord, LENGTH);
 
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Length == LENGTH);
