@@ -10,7 +10,7 @@ namespace EasyIpClientTest
     public class ClientTest: BaseClientTest
     {
         private IEasyIpClient _client;
-        private const byte LENGTH = 64;
+        private const byte LENGTH = 63;
         private const short POINT = 0;
         private List<int> _data = new List<int>();
         
