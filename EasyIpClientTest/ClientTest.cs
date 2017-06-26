@@ -16,7 +16,6 @@ namespace EasyIpClientTest
         
         public ClientTest()
         {
-            _client = GetClientInstance();
             var sequence = Enumerable.Range(1, LENGTH);
             _data.AddRange(sequence);
             _data.Shuffle();
@@ -43,10 +42,11 @@ namespace EasyIpClientTest
         }
 
 
-        [TestInitialize()]
+        [TestInitialize]
         public void ClientTestInitialize()
         {
             _data.Shuffle();
+            _client = GetClientInstance();
         }
 
         #region Дополнительные атрибуты тестирования

@@ -12,11 +12,18 @@ namespace EasyIpClientTest
     [TestClass]
     public class ChannelBenchmarkTest : BaseChannelTest
     {
+        protected IChannel _channel;
+
+        [TestInitialize]
+        public void ChannelTestInitialize()
+        {
+            _channel = GetChannelInstance();
+        }
+
 
         [TestMethod]
         public async Task ExecuteReadWriteBenchmarkTestAsync()
         {
-            IChannel client = GetChannelInstance();
             var writePacket = PacketFactory.GetWritePacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
             var readPacket = PacketFactory.GetReadPacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
 
@@ -25,12 +32,12 @@ namespace EasyIpClientTest
                 await Task.Run(async () =>
                     {
                         writePacket.Data[0] = (short)i;
-                        var response = await client.ExecuteAsync(writePacket.ToByteArray());
+                        var response = await _channel.ExecuteAsync(writePacket.ToByteArray());
 
                         Assert.IsNotNull(response);
                         Assert.IsTrue(response[1] == 0);
 
-                        response = await client.ExecuteAsync(readPacket.ToByteArray());
+                        response = await _channel.ExecuteAsync(readPacket.ToByteArray());
 
                         Assert.IsNotNull(response);
                         Assert.IsTrue(response[1] == 0);
@@ -50,7 +57,6 @@ namespace EasyIpClientTest
         [TestMethod]
         public void ExecuteReadWriteBenchmarkTest()
         {
-            IChannel client = GetChannelInstance();
             var writePacket = PacketFactory.GetWritePacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
             var readPacket = PacketFactory.GetReadPacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
 
@@ -58,12 +64,12 @@ namespace EasyIpClientTest
             {
 
                 writePacket.Data[0] = (short)i;
-                var response = client.Execute(writePacket.ToByteArray());
+                var response = _channel.Execute(writePacket.ToByteArray());
 
                 Assert.IsNotNull(response);
                 Assert.IsTrue(response[1] == 0);
 
-                response = client.Execute(readPacket.ToByteArray());
+                response = _channel.Execute(readPacket.ToByteArray());
 
                 Assert.IsNotNull(response);
                 Assert.IsTrue(response[1] == 0);
@@ -81,11 +87,10 @@ namespace EasyIpClientTest
         [TestMethod]
         public void ExecuteReadBenchmarkTest()
         {
-            IChannel client = GetChannelInstance();
             var readPacket = PacketFactory.GetReadPacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
             for (int i = 0; i < BENCHMARK_COUNT; i++)
             {
-                var response = client.Execute(readPacket.ToByteArray());
+                var response = _channel.Execute(readPacket.ToByteArray());
 
                 Assert.IsNotNull(response);
                 Assert.IsTrue(response[1] == 0);
@@ -97,12 +102,11 @@ namespace EasyIpClientTest
         [TestMethod]
         public void ExecuteWriteBenchmarkTest()
         {
-            IChannel client = GetChannelInstance();
             var writePacket = PacketFactory.GetWritePacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
             for (int i = 0; i < BENCHMARK_COUNT; i++)
             {
                 writePacket.Data[0] = (short)i;
-                var response = client.Execute(writePacket.ToByteArray());
+                var response = _channel.Execute(writePacket.ToByteArray());
 
                 Assert.IsNotNull(response);
                 Assert.IsTrue(response[1] == 0);

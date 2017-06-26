@@ -10,21 +10,26 @@ namespace EasyIpClientTest
     [TestClass]
     public class ChannelTest: BaseChannelTest
     {
+        protected IChannel _channel;
+
+        [TestInitialize]
+        public void ChannelTestInitialize()
+        {
+            _channel = GetChannelInstance();
+        }
+
         [TestMethod]
         public void CreationTest()
         {
-            var channel = GetChannelInstance();
-
-            Assert.IsNotNull(channel);
-            Assert.IsInstanceOfType(channel, typeof(IChannel));
+            Assert.IsNotNull(_channel);
+            Assert.IsInstanceOfType(_channel, typeof(IChannel));
         }
 
         [TestMethod]
         public void ExecuteReadTest()
         {
-            IChannel client = GetChannelInstance();
             var readPacket = PacketFactory.GetReadPacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
-            var response = client.Execute(readPacket.ToByteArray());
+            var response = _channel.Execute(readPacket.ToByteArray());
 
             Assert.IsNotNull(response);
             Assert.IsTrue(response[1] == 0);
@@ -35,12 +40,11 @@ namespace EasyIpClientTest
         [TestMethod]
         public void ExecuteWriteTest()
         {
-            IChannel client = GetChannelInstance();
             var writePacket = PacketFactory.GetWritePacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
             writePacket.Data[0] = 255;
             writePacket.Data[1] = 254;
             writePacket.Data[254] = 254;
-            var response = client.Execute(writePacket.ToByteArray());
+            var response = _channel.Execute(writePacket.ToByteArray());
 
             Assert.IsNotNull(response);
             Assert.IsTrue(response[1] == 0);
