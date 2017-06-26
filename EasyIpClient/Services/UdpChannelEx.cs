@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace System.Net.EasyIp
 {
+    /// <summary>
+    /// Encapsulate channel layer for communication via UDP protocol
+    /// </summary>
+    [Obsolete]
     public sealed class UdpChannelEx : Disposable, IChannel
     {
         private Socket _socket;

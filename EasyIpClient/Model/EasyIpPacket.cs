@@ -2,7 +2,10 @@
 
 namespace System.Net.EasyIp
 {
-    public class EasyIpPacket
+    /// <summary>
+    /// Encapsulate EasyIP packet
+    /// </summary>
+    public sealed class EasyIpPacket
     {
         /// <summary>
         /// 1 byte

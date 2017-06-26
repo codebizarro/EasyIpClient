@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\DataSizeOverflowException.cs" />
+    <Compile Include="Exceptions\RequestedDataSizeException.cs" />
     <Compile Include="Services\UdpChannelEx.cs" />
     <Compile Include="Services\UdpChannel.cs" />
     <Compile Include="Interfaces\IChannel.cs" />
