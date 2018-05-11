@@ -29,8 +29,13 @@ namespace System.Net.EasyIp
 
         public byte[] Execute(byte[] buffer)
         {
+            var buff = new byte[256];
             _client.Send(buffer, buffer.Length);
-            return _client.Receive(ref _endPoint);
+            do
+            {
+                buff = _client.Receive(ref _endPoint);
+            } while (_client.Available > 0);
+            return buff;
         }
 
         public async Task<byte[]> ExecuteAsync(byte[] buffer)

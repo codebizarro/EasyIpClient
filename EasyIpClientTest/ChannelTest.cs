@@ -28,7 +28,7 @@ namespace EasyIpClientTest
         [TestMethod]
         public void ExecuteReadTest()
         {
-            var readPacket = PacketFactory.GetReadPacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
+            var readPacket = PacketFactory.GetReadPacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, RECEIVE_DATA_SIZE);
             var response = _channel.Execute(readPacket.ToByteArray());
 
             Assert.IsNotNull(response);
@@ -40,7 +40,7 @@ namespace EasyIpClientTest
         [TestMethod]
         public void ExecuteWriteTest()
         {
-            var writePacket = PacketFactory.GetWritePacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, byte.MaxValue);
+            var writePacket = PacketFactory.GetWritePacket(REMOTE_OFFSET, DataTypeEnum.FlagWord, SEND_DATA_SIZE);
             writePacket.Data[0] = 255;
             writePacket.Data[1] = 254;
             writePacket.Data[254] = 254;
