@@ -4,7 +4,7 @@
 
 Library which encapsulate EasyIp protocol.
  
-It usually uses communication with factory automation systems based on FESTO IPC controllers.
+It usually uses for communication with factory automation systems based on FESTO IPC controllers.
 
 ***
 
