@@ -12,8 +12,8 @@ namespace EasyIpClientTest
         private IEasyIpClient _client;
         private const byte LENGTH = 63;
         private const short POINT = 0;
-        private List<int> _data = new List<int>();
-        
+        private readonly List<int> _data = new List<int>();
+
         public ClientTest()
         {
             var sequence = Enumerable.Range(1, LENGTH);
