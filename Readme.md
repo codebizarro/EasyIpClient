@@ -10,4 +10,5 @@ It usually uses comunication with factory automation systems based on FESTO IPC 
 
 ### Class diagram
 
-![Class diagram](https://s33.postimg.cc/a93uiixqn/Class_Diagram.png)
+![](./ClassDiagram.png)
+![](../../raw/default/ClassDiagram.png)
